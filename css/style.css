@@ -1,0 +1,486 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* --- 1. CORE CANVAS & ARCHITECTURE RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: #F7F3EC; 
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+#desk-canvas {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    max-width: 1920px;
+    max-height: 1080px;
+    margin: 0 auto;
+    /* Softly transforms background tones and overall environment lighting */
+    transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- 2. IMMOBILE BACKGROUND ACCENTS --- */
+.aesthetic-item {
+    position: absolute;
+    user-select: none;
+    pointer-events: none; /* Mouse clicks pass right through to items underneath */
+    object-fit: contain;
+}
+
+#layer-dream-big {
+    top: 5%;
+    left: 13%;
+    width: 88%;
+    height: auto;
+    opacity: 0.90;
+    z-index: 1;
+    transform: rotate(15deg);    
+    transition: filter 0.6s ease, opacity 0.6s ease;
+}
+
+#layer-fabric {
+    bottom: -56%;
+    left: -15%;
+    width: 52%;
+    height: auto;
+    transform: rotate(-52deg);
+    z-index: 2;
+}
+
+#layer-flowers {
+    top: -25%;       
+    left: -14%;      
+    width: 50%;      
+    height: auto;
+    transform: rotate(-15deg); 
+    z-index: 300; /* High index to float over items visually */
+}
+
+#layer-coffee-stain {
+    top: 0%;
+    right: 20%; 
+    width: 22%;
+    height: auto;
+    transform: rotate(45deg);
+    opacity: 0.85;
+    z-index: 2;
+}
+
+#layer-coffee-cup {
+    top: -2%;
+    right: 18%; 
+    width: 17%; 
+    height: auto;
+    transform: rotate(-5deg);
+    z-index: 3;
+}
+
+#layer-ceramic-bowl {
+    top: -4%;
+    right: -5%;
+    width: 20%;
+    height: auto;
+    z-index: 5;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- 3. MOVIE TICKETS & WALKMAN LAYOUT --- */
+.hover-floating-item {
+    position: absolute;
+    cursor: pointer;
+    z-index: 550; 
+    pointer-events: auto !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                filter 0.4s ease,
+                top 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                left 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                right 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#item-ticket-left {
+    top: 52%;
+    left: 3%;
+    width: 22%;
+    height: auto;
+    transform: rotate(-55deg);
+}
+#item-ticket-left:hover {
+    transform: rotate(-48deg) translateY(-8px);
+}
+
+#item-ticket-right {
+    top: 48%;
+    left: 8%;      
+    width: 22%;    
+    height: auto;
+    transform: rotate(-15deg); 
+}
+#item-ticket-right:hover {
+    transform: rotate(-10deg) translateY(-12px) scale(1.02);
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.15));
+}   
+
+#item-music-floating {
+    top: 29%;
+    right: -5%;
+    width: 32%;
+    height: auto;
+    transform: rotate(28deg);
+}
+#item-music-floating:hover {
+    transform: rotate(10deg) translate(-10px, -10px) scale(1.04);
+    filter: drop-shadow(-15px 20px 20px rgba(0,0,0,0.16));
+}
+
+/* --- 4. EXTREME CROPPED SUNGLASSES BUTTON --- */
+#item-glasses-toggle {
+    position: absolute;
+    top: -16%;            
+    left: 17%;            
+    width: 22%;          
+    height: auto;
+    transform: rotate(-16deg);
+    
+    /* Perfect crop value isolating the bottom frame of the image */
+    clip-path: inset(53% 0% 0% 0%);  
+    
+    z-index: 290; /* Safely tucked behind the transparent leaf stems of the flower (300) */
+    pointer-events: auto !important; 
+    cursor: pointer !important;
+    transition: transform 0.8s ease;
+}
+
+/* --- 5. NESTED MAGAZINE STACK MECHANICS --- */
+#magazine-stack {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 38%; 
+    height: auto;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    transform-origin: center center;
+    cursor: pointer;
+    z-index: 400;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#magazine-stack:hover {
+    transform: translate(-50%, -50%) scale(1.03) rotate(-8deg);
+    filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.16));
+}
+
+#mag-folder-base {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.mag-internal-page {
+    position: absolute;
+    
+    /* Pushes the spread down and left to align with the folder's internal backing */
+    top: 25%;
+    left: 25%;
+    
+    /* Expands the width so the entire group spread fills the inner file canvas neatly */
+    width: 45%;
+    height: auto;
+    
+    /* Slightly counter-rotates the pages to match the folder's specific paper tilt */
+    transform: rotate(2deg);
+    transform-origin: center center;
+    
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+#mag-center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 67%; 
+    height: auto;
+    transform: translate(-50%, -50%) rotate(-2deg);
+    transform-origin: center center;
+    z-index: 3; /* Placed exactly over the middle spine crease */
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
+}
+
+/* --- 6. ENVIRONMENT VIBE SHIFT ENGINE (DARK MODE) --- */
+#desk-canvas.dark-mode {
+    background-color: #1e151c !important; /* Unified backdrop background values */
+    background-image: url('../img/desk/darkmode.png') !important; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.7) contrast(1.05); 
+    transition: background 0.5s ease, filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Flips the pink watercolor image into a soft glowing white sheet */
+#desk-canvas.dark-mode #layer-dream-big {
+    filter: invert(1) hue-rotate(180deg) brightness(2);
+    opacity: 0.95; 
+}
+
+#desk-canvas.dark-mode #layer-ceramic-bowl {
+    transform: scale(1.05) translate(-15px, 15px);
+}
+
+/* --- 🎥 MOVIE SPREAD CORRECTION --- */
+#movies-spread {
+    position: absolute;
+    top: 42.5%;
+    left: -3%;          
+    width: 28%;         
+    height: auto;
+    transform: rotate(-19deg);
+    z-index: 200;       
+    pointer-events: none;
+}
+
+/* --- 📝 GREEN GUEST CHECK CORRECTION --- */
+#item-guest-check {
+    position: absolute;
+    bottom: 15%;
+    left: 74%;           
+    width: 12%;
+    height: auto;
+    transform: rotate(-20deg);
+    z-index: 2;       
+    pointer-events: auto;
+}
+
+/* --- ⚠️ PARENTAL ADVISORY STICKER CORRECTION --- */
+#item-advisory-sticker {
+    position: absolute;
+    bottom: 22%;
+    left: 76%;          
+    width: 28%;
+    height: auto;
+    transform: rotate(20deg);
+    z-index: 360;       
+}
+#item-advisory-sticker:hover {
+    transform: rotate(12deg) scale(1.08);
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+}
+
+/* --- 🔴 WRINKLED RED TAPE CIRCLE CORRECTION --- */
+#item-red-tape {
+    position: absolute;
+    bottom: 0%;
+    right: 30%;         
+    width: 10%;
+    height: auto;
+    transform: rotate(-5deg);
+    z-index: 410;       
+}
+#item-red-tape:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.18));
+}
+
+/* --- 👤 VISIBLE BLENDED FINGERPRINT DUPLICATES --- */
+.desk-fingerprint {
+    position: absolute;
+    width: 6%;
+    height: auto;
+    opacity: 0.65;       
+    z-index: 2;          
+    pointer-events: none;
+    user-select: none;
+}
+
+#fingerprint-1 {
+    top: 18%;
+    left: 15%;
+    width: 14%;
+    transform: rotate(60deg);
+}
+
+#fingerprint-2 {
+    bottom: 49%;
+    right: 6%;
+    width: 15%;
+    transform: rotate(-15deg);
+}
+
+/* ==========================================================================
+    🌅 FRESH DAY / NIGHT VISIBILITY SYSTEM
+   ========================================================================== */
+
+.night-only {
+    display: none !important;
+}
+
+#desk-canvas.dark-mode .day-only {
+    display: none !important;
+}
+#desk-canvas.dark-mode .night-only {
+    display: block !important;
+}
+
+/* ==========================================================================
+    🌙 NEW DARK MODE ENVIRONMENT SETTINGS
+   ========================================================================== */
+
+#desk-canvas.dark-mode #layer-fabric-dark,
+#desk-canvas.dark-mode #layer-flowers-dark,
+#desk-canvas.dark-mode #layer-coffee-stain,
+#desk-canvas.dark-mode #layer-coffee-cup-dark,
+#desk-canvas.dark-mode #layer-ceramic-bowl,
+#desk-canvas.dark-mode #item-guest-check {
+    filter: brightness(0.45) contrast(1.1);
+    transition: filter 0.4s ease;
+}
+
+#desk-canvas.dark-mode #magazine-stack,
+#desk-canvas.dark-mode #item-ticket-left,
+#desk-canvas.dark-mode #item-ticket-right,
+#desk-canvas.dark-mode #item-music-floating {
+    filter: brightness(1.0) contrast(1.0) !important;
+}
+
+#layer-fabric-dark {
+    position: absolute;
+    top: 9%;
+    left: -10%;
+    width: 40%; 
+    height: 115%;
+    object-fit: cover;
+    transform: rotate(-104deg); 
+    z-index: 1;
+    pointer-events: none; 
+}
+
+/* ==========================================================================
+    🕯️ CANDLE PLACEMENTS
+   ========================================================================== */
+#candle-top {
+    position: absolute;
+    top: 2%;
+    left: 42%;
+    width: 8%;
+    height: auto;
+    z-index: 10;
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(253, 184, 114, 0.45));
+}
+
+#candle-bottom {
+    position: absolute;
+    bottom: 5%;
+    left: 60%;
+    width: 10%;
+    height: auto;
+    z-index: 500; 
+    filter: brightness(1.25) drop-shadow(0 0 20px rgba(253, 184, 114, 0.5));
+}
+
+#candle-red-tix {
+    position: absolute;
+    bottom: 4%;
+    left: 2%;
+    width: 9%;
+    height: auto;
+    z-index: 600;
+    filter: brightness(1.15) drop-shadow(0 0 18px rgba(255, 70, 70, 0.4));
+}
+
+#layer-coffee-cup-dark {
+    top: -2%;
+    right: 12%; 
+    width: 25%; 
+    height: auto;
+    transform: rotate(-5deg);
+    z-index: 3;
+}
+
+#layer-flowers-dark {
+    top: -59%;       
+    left: -19%;      
+    width: 50%;      
+    height: auto;
+    transform: rotate(-15deg); 
+    z-index: 300; 
+}
+
+/* ==========================================================================
+    📖 FULL-SCREEN ENTRY OVERLAY ENGINE
+   ========================================================================== */
+
+#magazine-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999; 
+    background-color: #F7F3EC;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#magazine-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#desk-canvas.dark-mode ~ #magazine-overlay {
+    background-color: #121213;
+}
+
+/* --- IMMERSIVE CURTAIN SYSTEM --- */
+#magazine-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 500; 
+    pointer-events: none;
+}
+
+.split-curtain {
+    width: 50%;
+    height: 100%;
+    background-color: #F7F3EC;
+    transition: transform 1.1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+#desk-canvas.dark-mode ~ #magazine-overlay .split-curtain {
+    background-color: #121213;
+}
+
+.left-curtain {
+    transform-origin: left center;
+    border-right: 1px solid rgba(0,0,0,0.04);
+}
+
+.right-curtain {
+    transform-origin: right center;
+}
+
+#magazine-loader.split-open .left-curtain {
+    transform: translateX(-100%);
+}
+
+#magazine-loader.split-open .right-curtain {
+    transform: translateX(100%);
+}

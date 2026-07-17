@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARA — The Editor's Desk</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<section id="desk-canvas">
+    <img src="img/desk/deskmat.png" id="layer-fabric" class="day-only aesthetic-item" alt="Orchid Fabric">
+    <img src="img/desk/tablecloth(dark).jpg" id="layer-fabric-dark" class="night-only aesthetic-item" alt="Dark Striped Fabric">
+
+    <img src="img/desk/dreambig.png" id="layer-dream-big" class="day-only aesthetic-item" alt="dream BIG">
+
+    <img src="img/desk/flower.png" id="layer-flowers" class="day-only aesthetic-item" alt="Pink Floral Bouquet">
+    <img src="img/desk/flower(dark).png" id="layer-flowers-dark" class="night-only aesthetic-item" alt="White Lilies">
+
+    <img src="img/desk/coffeestain.png" id="layer-coffee-stain" class="aesthetic-item" alt="Coffee Stain Ring">
+    <img src="img/desk/coffeemug.png" id="layer-coffee-cup" class="day-only aesthetic-item" alt="Full Espresso Cup">
+    <img src="img/desk/emptymug.png" id="layer-coffee-cup-dark" class="night-only aesthetic-item" alt="Empty Coffee Cup">
+    
+    <img src="img/desk/bowl.png" id="layer-ceramic-bowl" class="aesthetic-item" alt="Ceramic Bowl">
+
+    <img src="img/desk/topcandle.png" id="candle-top" class="night-only aesthetic-item" alt="Top Lit Candle">
+    <img src="img/desk/bottomcandle.png" id="candle-bottom" class="night-only aesthetic-item" alt="Bottom Lit Candle">
+    <img src="img/desk/redcandle.png" id="candle-red-tix" class="night-only aesthetic-item" alt="Red Candle near tickets">
+
+    <img src="img/desk/movietix.png" id="item-ticket-left" class="hover-floating-item" alt="Movie Ticket Base">
+    <img src="img/desk/movietix.png" id="item-ticket-right" class="hover-floating-item" alt="Movie Ticket Overlap">
+    <img src="img/desk/cdplayer.png" id="item-music-floating" class="hover-floating-item" alt="Interactive Walkman">
+    <img src="img/desk/sunglass(dark).png" id="item-glasses-toggle" onclick="toggleDeskTheme()" alt="Toggle Night Mode">
+
+    <img src="img/desk/moviespread.png" id="movies-spread" class="day-only aesthetic-item" alt="Movies spread">	
+    <img src="img/desk/redot.png" id="item-red-tape" class="day-only hover-floating-item" alt="Red Paper Dot">
+
+    <img src="img/desk/spread2.jpg" id="item-guest-check" class="aesthetic-item" alt="Guest Check Note">
+    <img src="img/desk/sticker.png" id="item-advisory-sticker" class="hover-floating-item" alt="Parental Advisory Sticker">
+
+    <img src="img/desk/fingerprint.png" id="fingerprint-1" class="desk-fingerprint" alt="Fingerprint Texture">
+    <img src="img/desk/fingerprint.png" id="fingerprint-2" class="desk-fingerprint" alt="Fingerprint Texture">	
+
+    <div id="magazine-stack" title="Open Magazine">
+        <img src="img/desk/DARAfiles.png" id="mag-folder-base" alt="Magazine Folder Cover">
+        <img src="img/topoffile.png" id="mag-page-right" class="mag-internal-page" alt="Editorial Contents Page">
+        <img src="img/DARAlogo.png" id="mag-center-logo" alt="DARA Logo Badge">
+    </div>
+</section>
+	
+<!-- ==========================================================================
+     📖 CINEMATIC SPLIT CURTAIN OPENER
+     ========================================================================== -->
+<div id="magazine-overlay">
+    <div id="magazine-loader">
+        <div class="split-curtain left-curtain"></div>
+        <div class="split-curtain right-curtain"></div>
+    </div>
+</div>
+	
+<script>
+    function toggleDeskTheme() {
+        const desk = document.getElementById('desk-canvas');
+        desk.classList.toggle('dark-mode');
+    }
+	
+    document.addEventListener("DOMContentLoaded", () => {
+        const logo = document.getElementById("mag-center-logo");
+        const stack = document.getElementById("magazine-stack");
+        const overlay = document.getElementById("magazine-overlay");
+        const loader = document.getElementById("magazine-loader");
+        const canvas = document.getElementById("desk-canvas");
+
+        if (logo) {
+            logo.addEventListener("click", (e) => {
+                e.stopPropagation(); 
+
+                // 1. Freeze desk interactions during transition
+                if (canvas) canvas.style.pointerEvents = "none";
+
+                // 2. Launch the visual zoom element outward towards the screen
+                if (stack) {
+                    stack.style.transform = "translate(-50%, -50%) scale(5.5) rotate(0deg)";
+                    stack.style.opacity = "0";
+                    stack.style.transition = "transform 0.9s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.7s ease-in";
+                }
+
+                // 3. Bring in the cinematic container setup
+                if (overlay) overlay.classList.add("active");
+                if (loader) loader.classList.remove("split-open");
+
+                // 4. Transport user instantly to destination
+                setTimeout(() => {
+                    window.location.href = "file:///C:/Users/User1/Downloads/DARA/The%20magazine.html#fashion";
+                }, 850);
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
