@@ -1417,6 +1417,17 @@
     audioPlayer.play();
   });
 
+		// Automatically play the next song when the current track finishes
+if (audioPlayer) {
+    audioPlayer.addEventListener('ended', () => {
+        currentTrackIndex = (currentTrackIndex + 1) % trackList.length;
+        loadTrack(currentTrackIndex);
+        audioPlayer.play().catch(() => {
+            console.log("Auto-play blocked by browser policy.");
+        });
+    });
+}
+
   volumeSlider.addEventListener('input', (e) => {
     audioPlayer.volume = e.target.value;
   });
