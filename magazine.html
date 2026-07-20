@@ -58,6 +58,12 @@
             background: transparent;
             backdrop-filter: blur(5px);
             border-bottom: 1px solid rgba(128,128,128,0.1);
+			/* 1. Add a fallback color for older browsers */
+    background: rgba(255, 255, 255, 0.85); 
+    
+    /* 2. Webkit support prefix for older Safari/Mac browsers */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
         }
 
         .nav-container {
